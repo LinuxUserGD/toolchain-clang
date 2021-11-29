@@ -1,0 +1,9 @@
+# used ONLY to build stage1
+amd64		linux/amd64/bootstrap		dev
+amd64		linux/amd64/bootstrap/musl	dev
+
+# user selectable
+amd64		linux/amd64/clang	    	exp
+amd64		linux/amd64/clang/lto		exp
+amd64		linux/amd64/clang/musl		exp
+amd64		linux/amd64/clang/musl/lto	exp
