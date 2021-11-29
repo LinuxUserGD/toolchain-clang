@@ -1,0 +1,9 @@
+# Copyright 2021 2b57
+# Distributed under the terms of the GNU General Public License v2
+
+# This file contains descriptions of BINUTILS USE_EXPAND flags.
+
+# Keep it sorted.
+
+GNU - BINUTILS setting for systems that use GNU binutils
+LLVM - BINUTILS setting for systems that use LLVM binutils

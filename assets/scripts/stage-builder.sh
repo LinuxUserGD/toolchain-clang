@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 2021 2b57
 # Distributed under the terms of the GNU General Public License v2
 #
 # This script attempts to be a universal stage builder
@@ -51,6 +51,7 @@ mkdir -p "/var/tmp/catalyst/snapshot_cache/$TIMESTAMP"
 
 # create portage overlay
 THIS_OVERLAY_DIR="$REPO_BASEDIR/toolchain-clang"
+SRC_OVERLAY_DIR="$THIS_OVERLAY_DIR/assets/baserepo_overlay"
 DEFAULT_REPO_DIR="$REPO_BASEDIR/gentoo"
 MOUNT_JUNKDIR=$(mktemp -d)
 MOUNT_UPPERDIR="$MOUNT_JUNKDIR/overlay-upper"
@@ -68,7 +69,7 @@ if [ $(grep -q "$MOUNT_OVERLAY" /proc/mounts; echo $?) -eq 0 ]; then
 fi
 
 eval "rm -rf $MOUNT_JUNKDIR/* && mkdir -p $MOUNT_OVERLAY $MOUNT_WORKDIR $MOUNT_UPPERDIR" || exit 1
-eval "mkdir -p $MOUNT_UPPERDIR/scripts && cp -f $THIS_OVERLAY_DIR/scripts/bootstrap.sh $MOUNT_UPPERDIR/scripts/bootstrap.sh" || exit 1
+eval "cp -rf $SRC_OVERLAY_DIR/* $MOUNT_UPPERDIR/" || exit 1
 eval "mount -t overlay overlay -o lowerdir=\"$DEFAULT_REPO_DIR\",upperdir=\"$MOUNT_UPPERDIR\",workdir=\"$MOUNT_WORKDIR\" $MOUNT_OVERLAY" || exit 1
 
 einfo "Portage overlay is located at $MOUNT_OVERLAY"
@@ -77,7 +78,7 @@ einfo "Portage overlay is located at $MOUNT_OVERLAY"
 # available, so stick to the bundled one
 if [ -z "$CATALYST" ]; then
 	einfo "Tweaking catalyst config to use just created portage overlay"
-	cp -f "$THIS_OVERLAY_DIR/scripts/catalyst.conf" "$CONFTEMP/catalyst.conf" || exit 1
+	cp -f "$THIS_OVERLAY_DIR/assets/config/catalyst.conf" "$CONFTEMP/catalyst.conf" || exit 1
 	sed -i "s:@PORTDIR@:$MOUNT_OVERLAY:g" "$CONFTEMP/catalyst.conf" || exit 1
 	CATALYST="$CONFTEMP/catalyst.conf"
 fi

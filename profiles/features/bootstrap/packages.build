@@ -1,7 +1,2 @@
-sys-devel/lld
-sys-devel/llvm
-sys-devel/clang
-sys-libs/libcxx
-sys-libs/libcxxabi
-sys-libs/compiler-rt
-sys-libs/llvm-libunwind
+virtual/toolchain
+virtual/binutils

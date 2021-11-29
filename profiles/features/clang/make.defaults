@@ -1,3 +1,6 @@
+TOOLCHAIN="Clang"
+BINUTILS="LLVM"
+
 CC="clang"
 CXX="clang++"
 AR="llvm-ar"
