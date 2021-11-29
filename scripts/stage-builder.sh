@@ -53,7 +53,7 @@ mkdir -p "/var/tmp/catalyst/snapshot_cache/$TIMESTAMP"
 THIS_OVERLAY_DIR="$REPO_BASEDIR/toolchain-clang"
 DEFAULT_REPO_DIR="$REPO_BASEDIR/gentoo"
 MOUNT_JUNKDIR=$(mktemp -d)
-MOUNT_REPODIR="$MOUNT_JUNKDIR/toolchain-clang-overlay"
+MOUNT_UPPERDIR="$MOUNT_JUNKDIR/overlay-upper"
 MOUNT_OVERLAY="$MOUNT_JUNKDIR/portage-union"
 MOUNT_WORKDIR="$MOUNT_OVERLAY-workdir"
 
@@ -67,9 +67,9 @@ if [ $(grep -q "$MOUNT_OVERLAY" /proc/mounts; echo $?) -eq 0 ]; then
 	umount -f "$MOUNT_OVERLAY" || exit 1
 fi
 
-eval "rm -rf $MOUNT_OVERLAY $MOUNT_WORKDIR && mkdir -p $MOUNT_OVERLAY $MOUNT_WORKDIR" || exit 1
-eval "mkdir -p $MOUNT_OVERLAY/scripts && cp -f $THIS_OVERLAY_DIR/scripts/bootstrap.sh $MOUNT_OVERLAY/scripts/bootstrap.sh" || exit 1
-eval "mount -t overlay overlay -o lowerdir=\"$DEFAULT_REPO_DIR\",upperdir=\"$MOUNT_REPODIR\",workdir=\"$MOUNT_WORKDIR\" $MOUNT_OVERLAY" || exit 1
+eval "rm -rf $MOUNT_JUNKDIR/* && mkdir -p $MOUNT_OVERLAY $MOUNT_WORKDIR $MOUNT_UPPERDIR" || exit 1
+eval "mkdir -p $MOUNT_UPPERDIR/scripts && cp -f $THIS_OVERLAY_DIR/scripts/bootstrap.sh $MOUNT_UPPERDIR/scripts/bootstrap.sh" || exit 1
+eval "mount -t overlay overlay -o lowerdir=\"$DEFAULT_REPO_DIR\",upperdir=\"$MOUNT_UPPERDIR\",workdir=\"$MOUNT_WORKDIR\" $MOUNT_OVERLAY" || exit 1
 
 einfo "Portage overlay is located at $MOUNT_OVERLAY"
 
@@ -78,7 +78,7 @@ einfo "Portage overlay is located at $MOUNT_OVERLAY"
 if [ -z "$CATALYST" ]; then
 	einfo "Tweaking catalyst config to use just created portage overlay"
 	cp -f "$THIS_OVERLAY_DIR/scripts/catalyst.conf" "$CONFTEMP/catalyst.conf" || exit 1
-	sed -i "s/@PORTDIR@/$MOUNT_OVERLAY/g" "$CONFTEMP/catalyst.conf" || exit 1
+	sed -i "s:@PORTDIR@:$MOUNT_OVERLAY:g" "$CONFTEMP/catalyst.conf" || exit 1
 	CATALYST="$CONFTEMP/catalyst.conf"
 fi
 
