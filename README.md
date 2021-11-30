@@ -4,6 +4,13 @@ This is Gentoo Linux overlay experiment allowing to have your stage3 completely 
 
 ### WARNING: Alpha quality!
 
+## Technote
+Since this is not official and tweaked base profile is required (as well as other ARCH-native parent ones), `assets/stage-builder.sh` script 
+creates portage overlay via OverlayFS, which combines mainline Gentoo one with the content of `assets/baserepo_overlay` folder. Modifications made there are purely cosmetic thus patch against upstream would be minimal.
+
+## Concept
+GCC and binutils are deeply ingrained in the system, so two virtuals were created: `virtual/toolchain`, which can be either `gcc` or `clang`, and `virtual/binutils`, which can be `binutils` or `llvm`, respectively. Proposed profiles will take care of required USE flags and make required virtual resolutions by masking GCC/binutils.
+
 ## Building stage3 by hand
 
 As of now, there are profiles for `amd64` only. Once PoC will be done, other archs will be added.
@@ -34,9 +41,9 @@ git clone https://github.com/gentoo/releng.git
 
 ```
 cd /var/db/repos/toolchain-clang
-./scripts/stage-builder.sh specs/clang/musl/stage1.spec
-./scripts/stage-builder.sh specs/clang/musl/stage2.spec
-./scripts/stage-builder.sh specs/clang/musl/stage3.spec
+./assets/scripts/stage-builder.sh specs/clang/musl/stage1.spec
+./assets/scripts/stage-builder.sh specs/clang/musl/stage2.spec
+./assets/scripts/stage-builder.sh specs/clang/musl/stage3.spec
 ```
 
 3. Cross fingers...
