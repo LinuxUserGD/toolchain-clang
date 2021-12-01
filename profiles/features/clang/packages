@@ -1,3 +1,4 @@
+# now part of @system set
 *sys-devel/lld
 *sys-devel/llvm
 *sys-devel/clang
@@ -5,3 +6,7 @@
 *sys-libs/libcxxabi
 *sys-libs/compiler-rt
 *sys-libs/llvm-libunwind
+
+# remove standard toolchain
+-*sys-devel/gcc
+-*sys-devel/binutils

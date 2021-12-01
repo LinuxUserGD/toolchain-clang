@@ -1,7 +1,0 @@
-# no gcc allowed here
-sys-devel/gcc
-sys-devel/gcc-config
-
-# same for binutils
-sys-devel/binutils
-sys-devel/binutils-config

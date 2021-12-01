@@ -1,9 +1,9 @@
-TOOLCHAIN="Clang"
-BINUTILS="LLVM"
-
 CC="clang"
 CXX="clang++"
 AR="llvm-ar"
 NM="llvm-nm"
 LD="lld"
 RANLIB="llvm-ranlib"
+
+# curl needed by cmake
+BOOTSTRAP_USE="$BOOTSTRAP_USE ssl curl_ssl_openssl"
