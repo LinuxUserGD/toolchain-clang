@@ -1,8 +1,21 @@
+# use Clang as a primary compiler
 CC="clang"
 CXX="clang++"
+
+# call Clang to link, it will invoke lld if needed
+# from man clang:
+# The clang executable is actually a small driver which controls the overall
+# execution of other tools such as the compiler, assembler and linker.
+# Typically you do not need to interact with the driver, but you transparently
+# use it to run the other tools
+LD="clang"
+
+# some linker flags
+LDFLAGS="-fuse-ld=lld -rtlib=compiler-rt -unwindlib=libunwind -Wl,--as-needed"
+
+# use LLVM-provided binutils
 AR="llvm-ar"
 NM="llvm-nm"
-LD="lld"
 RANLIB="llvm-ranlib"
 
 # curl needed by cmake
