@@ -5,8 +5,16 @@ CXX="clang++"
 # this works with libtool
 LD="ld.lld"
 
-# some linker flags
-LDFLAGS="-fuse-ld=lld -rtlib=compiler-rt -unwindlib=libunwind -Wl,--as-needed"
+# linker flags
+LDFLAGS="${LDFLAGS} -fuse-ld=lld -rtlib=compiler-rt -unwindlib=libunwind -Wl,--as-needed"
+
+# hardening flags
+SOME_HARDENING_FLAGS="-fPIC -fstack-protector-strong -D_FORTIFY_SOURCE=2"
+
+# add some hardening by default
+LDFLAGS="${LDFLAGS} -Wl,-z,relro,-z,now -pie"
+CFLAGS="${CFLAGS} ${SOME_HARDENING_FLAGS}"
+CXXFLAGS="${CXXFLAGS} ${SOME_HARDENING_FLAGS}"
 
 # use LLVM-provided binutils
 AR="llvm-ar"
