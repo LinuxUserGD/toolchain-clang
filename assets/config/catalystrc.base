@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# adjust accordingly
+export MAKEOPTS="-j4"

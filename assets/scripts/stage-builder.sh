@@ -39,6 +39,7 @@ SEEDFILE_BASE="/var/tmp/catalyst/builds"
 ARCH=$(get_from_spec "subarch")
 PREFIX=$(get_from_spec source_subpath | cut -d '/' -f1)
 FLAVOUR=$(get_from_spec profile | cut -d ':' -f1 || "gentoo")
+STAGE=$(get_from_spec target)
 SNAPSHOT_FILE="$SNAPSHOT_BASE/$FLAVOUR-$TIMESTAMP.tar.bz2"
 BASEURL="https://bouncer.gentoo.org/fetch/root/all/releases/$ARCH/autobuilds"
 
@@ -74,12 +75,20 @@ eval "mount -t overlay overlay -o lowerdir=\"$DEFAULT_REPO_DIR\",upperdir=\"$MOU
 
 einfo "Portage overlay is located at $MOUNT_OVERLAY"
 
+einfo "Creating catalystrc file"
+cp -rf "$THIS_OVERLAY_DIR/assets/config/catalystrc.base" "$CONFTEMP/catalystrc" || exit 1
+
+if [ "$STAGE" == "stage2" ]; then
+	cat "$THIS_OVERLAY_DIR/assets/config/catalystrc.stage2" >> "$CONFTEMP/catalystrc"
+fi
+
 # at this point is safe to assume that there's no external catalyst config
 # available, so stick to the bundled one
 if [ -z "$CATALYST" ]; then
 	einfo "Tweaking catalyst config to use just created portage overlay"
 	cp -f "$THIS_OVERLAY_DIR/assets/config/catalyst.conf" "$CONFTEMP/catalyst.conf" || exit 1
 	sed -i "s:@PORTDIR@:$MOUNT_OVERLAY:g" "$CONFTEMP/catalyst.conf" || exit 1
+	sed -i "s:@ENVSCRIPT@:$CONFTEMP/catalystrc:g" "$CONFTEMP/catalyst.conf"  || exit 1
 	CATALYST="$CONFTEMP/catalyst.conf"
 fi
 
@@ -91,6 +100,7 @@ fi
 
 # check for snapshot
 if [ ! -f "$SNAPSHOT_FILE" ]; then
+	echo "Missing snapshot: $SNAPSHOT_FILE"
 	einfo "Getting current snapshot..."
 
 	CMD="catalyst -s $TIMESTAMP"
