@@ -1,9 +1,0 @@
-# Copyright 2021 2b57
-# Distributed under the terms of the GNU General Public License v2
-
-# This file contains descriptions of TOOLCHAIN USE_EXPAND flags.
-
-# Keep it sorted.
-
-GCC - TOOLCHAIN setting for systems that use GNU GCC compiler
-Clang - TOOLCHAIN setting for systems that use Clang compiler

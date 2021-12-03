@@ -146,11 +146,6 @@ elif [[ -n ${STRAP_RUN} ]] ; then
 		echo "Starting Bootstrap of base system ..."
 	fi
 fi
-
-ewarn "WARNING!!"
-ewarn "WARNING!! RUNNING EXPERIMENTAL TOOLCHAIN SCRIPT"
-ewarn "WARNING!!"
-
 echo -------------------------------------------------------------------------------
 show_status 0 Locating packages
 
@@ -273,13 +268,14 @@ for atom in portage.settings.packages:
 # This stuff should never fail but will if not enough is installed.
 [[ -z ${myBASELAYOUT} ]] && myBASELAYOUT=">=$(portageq best_version / sys-apps/baselayout)"
 [[ -z ${myPORTAGE}    ]] && myPORTAGE="sys-apps/portage"
-[[ -z ${myBINUTILS}   ]] && myBINUTILS="$(portageq expand_virtual / virtual/binutils)"
-[[ -z ${myTOOLCHAIN}  ]] && myTOOLCHAIN="$(portageq expand_virtual / virtual/toolchain)"
+[[ -z ${myBINUTILS}   ]] && myBINUTILS="sys-devel/binutils"
+[[ -z ${myGCC}        ]] && myGCC="sys-devel/gcc"
 [[ -z ${myGETTEXT}    ]] && myGETTEXT="sys-devel/gettext"
 [[ -z ${myLIBC}       ]] && myLIBC="$(portageq expand_virtual / virtual/libc)"
 [[ -z ${myTEXINFO}    ]] && myTEXINFO="sys-apps/texinfo"
 [[ -z ${myZLIB}       ]] && myZLIB="sys-libs/zlib"
 [[ -z ${myNCURSES}    ]] && myNCURSES="sys-libs/ncurses"
+[[ -z ${myPERL}       ]] && myPERL="dev-lang/perl"
 
 # Do we really want gettext/nls?
 [[ ${USE_NLS} != 1 ]] && myGETTEXT=
@@ -295,12 +291,13 @@ einfo "Using baselayout : ${myBASELAYOUT}"
 einfo "Using portage    : ${myPORTAGE}"
 einfo "Using os-headers : ${myOS_HEADERS}"
 einfo "Using binutils   : ${myBINUTILS}"
-einfo "Using toolchain  : ${myTOOLCHAIN}"
+einfo "Using gcc        : ${myGCC}"
 [[ ${USE_NLS} = "1" ]] && einfo "Using gettext    : ${myGETTEXT}"
 einfo "Using libc       : ${myLIBC}"
 einfo "Using texinfo    : ${myTEXINFO}"
 einfo "Using zlib       : ${myZLIB}"
 einfo "Using ncurses    : ${myNCURSES}"
+einfo "Using perl       : ${myPERL}"
 echo -------------------------------------------------------------------------------
 show_status 1 Configuring environment
 echo -------------------------------------------------------------------------------
@@ -330,7 +327,6 @@ export USE="-* bootstrap ${ALLOWED_USE} ${BOOTSTRAP_USE}"
 # before fully bootstrapping.
 if [ ${BOOTSTRAP_STAGE} -le 2 ] ; then
 	show_status 3 Emerging packages
-
 	if [[ ${RESUME} -eq 1 ]] ; then
 		STRAP_EMERGE_POSARGS=""
 		STRAP_EMERGE_OPTS="${STRAP_EMERGE_OPTS} --resume"
@@ -338,7 +334,7 @@ if [ ${BOOTSTRAP_STAGE} -le 2 ] ; then
 	else
 		STRAP_EMERGE_POSARGS="\
 			${myOS_HEADERS} ${myTEXINFO} ${myGETTEXT} ${myBINUTILS} \
-			${myTOOLCHAIN} ${myLIBC} ${myBASELAYOUT} ${myZLIB}"
+			${myGCC} ${myLIBC} ${myBASELAYOUT} ${myZLIB} ${myPERL}"
 	fi
 	${V_ECHO} emerge ${STRAP_EMERGE_OPTS} ${STRAP_EMERGE_POSARGS} || cleanup 1
 	echo -------------------------------------------------------------------------------
@@ -365,4 +361,3 @@ if [[ -n ${STRAP_RUN} ]] ; then
 fi
 
 cleanup 0
-
