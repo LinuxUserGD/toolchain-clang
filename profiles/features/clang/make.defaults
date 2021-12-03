@@ -2,21 +2,23 @@
 CC="clang"
 CXX="clang++"
 
-# call Clang to link, it will invoke lld if needed
-# from man clang:
-# The clang executable is actually a small driver which controls the overall
-# execution of other tools such as the compiler, assembler and linker.
-# Typically you do not need to interact with the driver, but you transparently
-# use it to run the other tools
-LD="clang"
+# this works with libtool
+LD="ld.lld"
 
 # some linker flags
 LDFLAGS="-fuse-ld=lld -rtlib=compiler-rt -unwindlib=libunwind -Wl,--as-needed"
 
 # use LLVM-provided binutils
 AR="llvm-ar"
+AS="llvm-as"
 NM="llvm-nm"
+STRIP="llvm-strip"
 RANLIB="llvm-ranlib"
+OBJCOPY="llvm-objcopy"
+STRINGS="llvm-strings"
+OBJDUMP="llvm-objdump"
+READELF="llvm-readelf"
+ADDR2LINE="llvm-addr2line"
 
 # curl needed by cmake
 BOOTSTRAP_USE="$BOOTSTRAP_USE ssl curl_ssl_openssl"
