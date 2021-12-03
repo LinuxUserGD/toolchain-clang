@@ -1,6 +1,6 @@
 # used ONLY to build stage1
-amd64		linux/amd64/bootstrap		dev
-amd64		linux/amd64/bootstrap/musl	dev
+amd64		linux/amd64/bootstrap		exp
+amd64		linux/amd64/bootstrap/musl	exp
 
 # user selectable
 amd64		linux/amd64/clang	    	exp

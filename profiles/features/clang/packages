@@ -7,6 +7,6 @@
 *sys-libs/compiler-rt
 *sys-libs/llvm-libunwind
 
-# remove standard toolchain
+# remove GNU toolchain
 -*sys-devel/gcc
 -*sys-devel/binutils
