@@ -298,6 +298,8 @@ einfo "Using texinfo    : ${myTEXINFO}"
 einfo "Using zlib       : ${myZLIB}"
 einfo "Using ncurses    : ${myNCURSES}"
 einfo "Using perl       : ${myPERL}"
+[[ -n ${myEXTRA} ]] && einfo "Using extra pkgs : ${myEXTRA}"
+
 echo -------------------------------------------------------------------------------
 show_status 1 Configuring environment
 echo -------------------------------------------------------------------------------
@@ -334,7 +336,7 @@ if [ ${BOOTSTRAP_STAGE} -le 2 ] ; then
 	else
 		STRAP_EMERGE_POSARGS="\
 			${myOS_HEADERS} ${myTEXINFO} ${myGETTEXT} ${myBINUTILS} \
-			${myGCC} ${myLIBC} ${myBASELAYOUT} ${myZLIB} ${myPERL}"
+			${myGCC} ${myLIBC} ${myBASELAYOUT} ${myZLIB} ${myPERL} ${myEXTRA}"
 	fi
 	${V_ECHO} emerge ${STRAP_EMERGE_OPTS} ${STRAP_EMERGE_POSARGS} || cleanup 1
 	echo -------------------------------------------------------------------------------
