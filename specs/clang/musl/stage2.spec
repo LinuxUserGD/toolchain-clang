@@ -9,5 +9,4 @@ chost: x86_64-gentoo-linux-musl
 portage_prefix: releng
 portage_overlay: /var/db/repos/musl /var/db/repos/toolchain-clang
 portage_confdir: /var/db/repos/toolchain-clang/releng/releases/portage/stages
-compression_mode: pixz_p
-
+compression_mode: pixz_x
