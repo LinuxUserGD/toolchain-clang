@@ -10,3 +10,8 @@
 # remove GNU toolchain
 -*sys-devel/gcc
 -*sys-devel/binutils
+
+# these are needed for adding of this overlay
+# right after chrooting into stage3
+*dev-vcs/git
+*app-eselect/eselect-repository
