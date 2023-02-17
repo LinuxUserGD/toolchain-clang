@@ -4,10 +4,10 @@
 This is Gentoo Linux overlay experiment allowing to have your stage3 completely _GCC-free_. You can either grab a release and process with installation as per Gentoo Handbook, or try to switch your current system profile and rebuild world.
 
 # Available profiles
-### amd64
-- `clang` based on `default/linux/amd64/17.1`;
+### ppc
+- `clang` based on `default/linux/ppc/17.1`;
 - `clang/lto` same, but with LTO;
-- `clang/musl` based on `default/linux/amd64/17.0/musl`;
+- `clang/musl` based on `default/linux/ppc/17.0/musl`;
 - `clang/musl/lto` same, but with LTO.
 
 ### NOTE
@@ -23,12 +23,12 @@ emaint sync -r toolchain-clang
 ## How to use it
 This is your default stage3 + `git` + `eselect-repository` packages for overlay management. You'll get warnings that your profile symlink is invalid, so after chrooting inside be sure to add this overlay (see above) and select right profile:
 ```
-# eselect profile list | grep toolchain-clang:linux/amd64/clang/musl
-  [43]  toolchain-clang:linux/amd64/clang/musl (exp)
-  [44]  toolchain-clang:linux/amd64/clang/musl/lto (exp)
+# eselect profile list | grep toolchain-clang:linux/ppc/clang/musl
+  [43]  toolchain-clang:linux/ppc/clang/musl (exp)
+  [44]  toolchain-clang:linux/ppc/clang/musl/lto (exp)
 # eselect profile set --force 43
-# eselect profile list | grep toolchain-clang:linux/amd64/clang/musl
-  [43]  toolchain-clang:linux/amd64/clang/musl (exp) *
+# eselect profile list | grep toolchain-clang:linux/ppc/clang/musl
+  [43]  toolchain-clang:linux/ppc/clang/musl (exp) *
   [44]
 ```
 

@@ -1,9 +1,9 @@
 # used ONLY to build stage1
-amd64		linux/amd64/bootstrap		exp
-amd64		linux/amd64/bootstrap/musl	exp
+ppc		linux/ppc/bootstrap		exp
+ppc		linux/ppc/bootstrap/musl	exp
 
 # user selectable
-amd64		linux/amd64/clang	    	exp
-amd64		linux/amd64/clang/lto		exp
-amd64		linux/amd64/clang/musl		exp
-amd64		linux/amd64/clang/musl/lto	exp
+ppc		linux/ppc/clang			exp
+ppc		linux/ppc/clang/lto		exp
+ppc		linux/ppc/clang/musl		exp
+ppc		linux/ppc/clang/musl/lto	exp
