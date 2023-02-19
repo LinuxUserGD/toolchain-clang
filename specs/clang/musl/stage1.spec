@@ -12,4 +12,4 @@ portage_confdir: /var/db/repos/toolchain-clang/releng/releases/portage/stages
 update_seed: yes
 update_seed_command: --update --deep --newuse @world
 compression_mode: pixz_x
-
+interpreter: /usr/bin/qemu-ppc
