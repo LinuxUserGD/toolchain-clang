@@ -1,16 +1,8 @@
 # now part of @system set
-*sys-devel/lld
-*sys-devel/llvm
-*sys-devel/clang
-*sys-libs/libcxx
-*sys-libs/libcxxabi
-*sys-libs/compiler-rt
-*sys-libs/llvm-libunwind
-
+dev-lang/zig
 # remove GNU toolchain
 -*sys-devel/gcc
 -*sys-devel/binutils
-
 # these are needed for adding of this overlay
 # right after chrooting into stage3
 *dev-vcs/git

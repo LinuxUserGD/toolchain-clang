@@ -1,21 +1,21 @@
 # Clang needs this
-BOOTSTRAP_USE="${BOOTSTRAP_USE} python_single_target_python3_9"
+BOOTSTRAP_USE="${BOOTSTRAP_USE} python_single_target_python3_10"
 
 # sys-devel/llvm
 BOOTSTRAP_USE="${BOOTSTRAP_USE} -gold"
 
 # sys-devel/clang, sys-devel/clang-runtime, sys-libs/llvm-libunwind, sys-libs/libcxx, sys-libs/libcxxabi
-BOOTSTRAP_USE="${BOOTSTRAP_USE} compiler-rt clang libunwind"
+BOOTSTRAP_USE="${BOOTSTRAP_USE}"
 
 # sys-devel/clang
-BOOTSTRAP_USE="${BOOTSTRAP_USE} default-compiler-rt default-lld default-libcxx llvm-libunwind"
+BOOTSTRAP_USE="${BOOTSTRAP_USE}"
 
 # sys-devel/clang-runtime
 # sanitizers are disabled for now
-BOOTSTRAP_USE="${BOOTSTRAP_USE} libcxx -sanitize"
+BOOTSTRAP_USE="${BOOTSTRAP_USE}"
 
 # sys-libs/libcxxabi
-BOOTSTRAP_USE="${BOOTSTRAP_USE} libcxxabi"
+BOOTSTRAP_USE="${BOOTSTRAP_USE}"
 
 # sys-devel/gcc
 # only libgcc and stdlib are needed

@@ -9,7 +9,6 @@ chost: powerpc-gentoo-linux-musl
 portage_prefix: releng
 portage_overlay: /var/db/repos/musl /var/db/repos/toolchain-clang
 portage_confdir: /var/db/repos/toolchain-clang/releng/releases/portage/stages
-update_seed: yes
-update_seed_command: --update --deep --newuse @world --exclude=sys-devel/gcc
+update_seed: no
 compression_mode: pixz_x
 interpreter: /usr/bin/qemu-ppc
