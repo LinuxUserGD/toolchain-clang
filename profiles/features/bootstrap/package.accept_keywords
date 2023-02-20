@@ -18,3 +18,4 @@ sys-libs/llvm-libunwind **
 sys-devel/clang-toolchain-symlinks **
 sys-devel/llvm-toolchain-symlinks **
 sys-devel/lld-toolchain-symlinks **
+dev-lang/zig **
