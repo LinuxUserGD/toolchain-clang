@@ -2,7 +2,7 @@
 BOOTSTRAP_USE="${BOOTSTRAP_USE} python_single_target_python3_10"
 
 # sys-devel/llvm
-BOOTSTRAP_USE="${BOOTSTRAP_USE} -gold zstd"
+BOOTSTRAP_USE="${BOOTSTRAP_USE} -gold zstd curl"
 
 # sys-devel/clang, sys-devel/clang-runtime, sys-libs/llvm-libunwind, sys-libs/libcxx, sys-libs/libcxxabi
 BOOTSTRAP_USE="${BOOTSTRAP_USE}"
